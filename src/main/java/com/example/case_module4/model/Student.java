@@ -17,8 +17,10 @@ public class Student {
     private Course course;
     @OneToOne
     private AppUser appUser;
+
     @OneToOne
     private Classes classes;
+
     private String image;
     @ManyToOne
     private StatusStudent statusStudent;

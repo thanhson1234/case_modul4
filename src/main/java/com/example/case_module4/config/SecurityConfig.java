@@ -17,25 +17,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/home/**","/","static/assets/**"
-                     ).permitAll()
-                .and()
-                .authorizeRequests().antMatchers("/teachers**").hasRole("TEACHER")
+        http.authorizeRequests().antMatchers("/home/**", "/", "static/assets/**", "/showStudent/**").permitAll().and().authorizeRequests().antMatchers("/teachers**").hasRole("TEACHER")
 
-                .and()
-                .authorizeRequests().antMatchers("/officers**").hasRole("OFFICER")
-                .and()
-                .authorizeRequests().antMatchers("/admin**").hasRole("ADMIN")
-                .and()
-                .authorizeRequests().antMatchers("/students**").hasRole("STUDENT")
-                .and().formLogin().successHandler(new CustomSuccessHandler())
-                .and().logout()
-                .and().csrf().disable()
-                .exceptionHandling().accessDeniedPage("/accessDenied");
+                .and().authorizeRequests().antMatchers("/officers**").hasRole("OFFICER").and().authorizeRequests().antMatchers("/admin**").hasRole("ADMIN").and().authorizeRequests().antMatchers("/students**").hasRole("STUDENT").and().formLogin().successHandler(new CustomSuccessHandler()).and().logout().and().csrf().disable().exceptionHandling().accessDeniedPage("/accessDenied");
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-      auth.userDetailsService(userService).passwordEncoder(NoOpPasswordEncoder.getInstance());
+        auth.userDetailsService(userService).passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
 }
